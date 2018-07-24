@@ -1,0 +1,48 @@
+header ul {
+    background-color: maroon;
+    color: white;
+    height: 50px;
+    padding-top: 30px;
+}
+
+header ul li  {
+    display: inline;
+    
+}
+
+header ul li a {
+    color: white;
+    margin-right: 20px;
+   
+}
+
+.blog {
+    margin-right: 120px;
+}
+
+footer {
+    text-align: center;
+    background-color: maroon;
+    color: white;
+    height: 50px;
+}
+
+footer p {
+    padding-top: 13px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+.border-line {
+    border-bottom: 1px solid black;
+}
