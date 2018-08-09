@@ -22,6 +22,8 @@ export const post = (url, newContent) => {
     }
     return fetch(url, postData)
         .then(response => {
+            console.log(response);
+            
             return response.json();
         })
 }

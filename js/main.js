@@ -3,11 +3,9 @@ import * as ui from "./ui/ui.js";
 
 const loadPosts = () => {
 
-    ui.createHeader();
-    ui.createFooter();
-
     data.getPosts()
         .then((postList) => {
+            localStorage.setItem("blog-posts", JSON.stringify(postList));
             ui.displayPosts(postList);
         });
 }
@@ -68,9 +66,10 @@ const cancelNewPostHandler = (event) => {
 const createPostHandler = (event) => {
 
     event.preventDefault();
-    const postData = uiPost.collectNewPostData();
+    const postData = ui.collectData();
+
     if (event.target.className == "create-post") {
-        data.postNewPost(postData);
+        data.postNewPost(postData)
         loadPosts();
     }
 }
@@ -135,6 +134,8 @@ const singleAuthorHandler = (event) => {
 
 export const init = () => {
 
+    ui.createHeader();
+    ui.createFooter();
     loadPosts();
 
     const authors = document.querySelector(".authors");
