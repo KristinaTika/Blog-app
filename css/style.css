@@ -2,12 +2,11 @@ header ul {
     background-color: maroon;
     color: white;
     height: 50px;
-    padding-top: 30px;
+    padding-top: 15px;
 }
 
 header ul li  {
     display: inline;
-    
 }
 
 header ul li a {

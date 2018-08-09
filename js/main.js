@@ -1,20 +1,20 @@
 import * as data from "./data/data.js";
-import { renderAboutPage } from "./ui/uiAbout.js";
-import * as uiPost from "./ui/uiPost.js";
-import * as uiAuthor from "./ui/uiAuthor.js";
+import * as ui from "./ui/ui.js";
 
 const loadPosts = () => {
 
+    ui.createHeader();
+    ui.createFooter();
+
     data.getPosts()
         .then((postList) => {
-            uiPost.renderPosts(postList)
+            ui.displayPosts(postList);
         });
 }
 
 const handleHome = (event) => {
 
     event.preventDefault();
-
     if (event.target.className == "home") {
         loadPosts();
     }
@@ -23,11 +23,10 @@ const handleHome = (event) => {
 const authorsListHandler = (event) => {
 
     event.preventDefault();
-
     if (event.target.className == "authors") {
         data.getAuthors()
             .then((authorsList) => {
-                uiAuthor.renderAuthors(authorsList)
+                ui.displayAuthors(authorsList)
                 const authors = document.querySelectorAll(".author-title");
                 authors.forEach(author => {
                     author.addEventListener("click", singleAuthorHandler);
@@ -39,11 +38,10 @@ const authorsListHandler = (event) => {
 const backToAuthorsHandler = (event) => {
 
     event.preventDefault();
-
     if (event.target.className == "back-to-authors") {
         data.getAuthors()
             .then((authorsList) => {
-                uiAuthor.renderAuthors(authorsList)
+                ui.displayAuthors(authorsList)
                 const authors = document.querySelectorAll(".author-title");
                 authors.forEach(author => {
                     author.addEventListener("click", singleAuthorHandler);
@@ -55,7 +53,7 @@ const backToAuthorsHandler = (event) => {
 const aboutHandler = (event) => {
 
     if (event.target.className == "about") {
-        renderAboutPage();
+        ui.displayAboutPage();
     }
 }
 
@@ -80,7 +78,7 @@ const createPostHandler = (event) => {
 const createNewPostHandler = (event) => {
 
     if (event.target.className == "create-new-post") {
-        uiPost.displayCreateNewPost();
+        ui.displayCreateNewPost();
         const cancel = document.querySelector(".cancel-new-post");
         cancel.addEventListener("click", cancelNewPostHandler);
         const createPost = document.querySelector(".create-post");
@@ -92,7 +90,7 @@ const getMorePostsHandler = (author) => {
 
     data.getMorePostsFromAuthor(author.id)
         .then((response) => {
-            uiPost.renderMorePostsFromASingleAuthor(response);
+            ui.displayMorePosts(response);
             const authorName = document.querySelector(".author-name");
             authorName.addEventListener("click", singleAuthorHandler);
             const morePosts = document.querySelector(".more-posts");
@@ -105,7 +103,7 @@ const getAuthorHandler = (post) => {
     data.getSingleAuthor(post.userId)
         .then((author) => {
             getMorePostsHandler(author);
-            uiPost.renderSinglePost(post, author);
+            ui.displaySinglePost(post, author);
         })
 }
 
@@ -124,12 +122,11 @@ const singlePostHandler = (event) => {
 const singleAuthorHandler = (event) => {
 
     event.preventDefault();
-
     const authorId = event.target.getAttribute("data-id");
     if (event.target.className == "author-name" || event.target.className == "author-title") {
         data.getSingleAuthor(authorId)
             .then((singleAuthor) => {
-                uiAuthor.renderSingleAuthor(singleAuthor);
+                ui.displaySingleAuthor(singleAuthor);
                 const allAuthors = document.querySelector(".back-to-authors");
                 allAuthors.addEventListener("click", backToAuthorsHandler);
             })
