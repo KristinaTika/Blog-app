@@ -18,7 +18,7 @@ const handleHome = (event) => {
 
     event.preventDefault();
     if (event.target.className == "home") {
-        loadPosts();
+        ui.displayPosts(myPosts);
     }
 }
 
