@@ -101,29 +101,14 @@ export const collectNewPostData = () => {
     const content = postContentInput.value;
    
     const postData = {
+        userId: 10,
+        id: 10,
         title: title,
-        body: content
+        body: content,
     }
    
     return postData;
 }
 
-// const storageNewPostHandler = (post) => {
-
-// 	post.id = 101;
-
-// 	if (!localStorage.getItem("blog-posts")) {
-// 		localStorage.setItem("blog-posts", JSON.stringify([]));
-// 	}
-
-//     const storagedPosts = JSON.parse(localStorage.getItem("posts"));
-    
-// 	if (storagedPosts.length > 0) {
-// 		post.id = Number(storagedPosts[storagedPosts.length -1 ].id) +1;
-// 	}
-
-// 	storagedPosts.push(post);
-// 	localStorage.setItem('blog-posts', JSON.stringify(storagedPosts));
-// }
 
 

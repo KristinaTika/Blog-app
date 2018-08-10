@@ -1,11 +1,15 @@
 import * as data from "./data/data.js";
 import * as ui from "./ui/ui.js";
 
+const myPosts = []
+
 const loadPosts = () => {
 
     data.getPosts()
         .then((postList) => {
-            localStorage.setItem("blog-posts", JSON.stringify(postList));
+            postList.forEach((post) => {
+                myPosts.push(post)
+            })
             ui.displayPosts(postList);
         });
 }
@@ -67,14 +71,15 @@ const createPostHandler = (event) => {
 
     event.preventDefault();
     const postData = ui.collectData();
-
+    myPosts.push(postData);
+    let parsed = myPosts.reverse();
     if (event.target.className == "create-post") {
-        data.postNewPost(postData)
-        loadPosts();
+        data.postNewPost(postData);
+        ui.displayPosts(myPosts);
     }
 }
 
-const createNewPostHandler = (event) => {
+const AddNewPostListeners = (event) => {
 
     if (event.target.className == "create-new-post") {
         ui.displayCreateNewPost();
@@ -145,7 +150,7 @@ export const init = () => {
     about.addEventListener("click", aboutHandler);
 
     const create = document.querySelector(".create-new-post");
-    create.addEventListener("click", createNewPostHandler);
+    create.addEventListener("click", AddNewPostListeners);
 
     const body = document.querySelector("body");
     body.addEventListener("click", singlePostHandler);
