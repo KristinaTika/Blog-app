@@ -1,7 +1,7 @@
 import * as data from "./data/data.js";
 import * as ui from "./ui/ui.js";
 
-const myPosts = []
+const myPosts = [];
 
 const loadPosts = () => {
 
@@ -68,14 +68,20 @@ const cancelNewPostHandler = (event) => {
 }
 
 const createPostHandler = (event) => {
-
+    
     event.preventDefault();
+    const message = document.querySelector(".message");
     const postData = ui.collectData();
-    myPosts.push(postData);
-    let parsed = myPosts.reverse();
-    if (event.target.className == "create-post") {
+    if(postData.body == "" || postData.title == "") {
+        message.setAttribute("class", "message show");
+    } else {
+        message.setAttribute("class", "hide");
         data.postNewPost(postData);
-        ui.displayPosts(myPosts);
+        postData.userId = 10;
+        postData.id = 10;
+        myPosts.push(postData);
+        let parsed = myPosts.reverse();
+        ui.displayPosts(parsed);
     }
 }
 
@@ -124,7 +130,7 @@ const singlePostHandler = (event) => {
 }
 
 const singleAuthorHandler = (event) => {
-
+    
     event.preventDefault();
     const authorId = event.target.getAttribute("data-id");
     if (event.target.className == "author-name" || event.target.className == "author-title") {

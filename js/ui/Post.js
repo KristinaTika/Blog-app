@@ -2,7 +2,7 @@ const container = document.querySelector(".container");
 
 export const renderPosts = (posts) => {
 
-    container.innerHTML="";
+    container.innerHTML= "";
     const postTitle = document.createElement("h1");
     postTitle.textContent = "POSTS";
     container.appendChild(postTitle);
@@ -31,13 +31,14 @@ export const renderSinglePost = (post, author) => {
     container.innerHTML = "";
     const singlePostDiv = document.createElement("div");
     singlePostDiv.innerHTML = `
-    <h1>${post.title}</h1>
+    <h1 id="title">${post.title}</h1>
     <h4>Author: 
         <a href="#" data-id="${post.userId}" class="author-name" > ${author.name}
         </a> 
     </h4>
     <p>${post.body}</p>
-    <hr class="border-line" />
+    <div class="border-line" >
+    </div>
     <h5> All posts from the same author: </h5> 
     `;
 
@@ -53,11 +54,10 @@ export const renderMorePostsFromASingleAuthor = (posts) => {
 
         let listLi = document.createElement("li");
         listLi.innerHTML = `
-        <li>
-            <a href="#" data-id="${posts[i].id}" class="more-posts" >
-                ${posts[i].title.slice(0, 20)}"
-            </a>
-        </li>`;
+        <a href="#" data-id="${posts[i].id}" class="more-posts" >
+            ${posts[i].title.slice(0, 20)}"
+        </a>
+        `;
 
         list.appendChild(listLi);
     }  
@@ -67,26 +67,23 @@ export const displayCreateNewPost = () => {
 
     container.innerHTML = "";
     const newPost = document.createElement("div");
+    newPost.setAttribute("class", "new-post-info");
     newPost.innerHTML = `
     <h1>NEW POST</h1>
     <div class="row">
-        <form  id="form-new-post" class="col s12">
-            <div class="row">
-                <div class="col s6">
-                    <label for="post-title">Post Title</label>
-                    <input type="text" id="post-title">
-                </div>
+        <form  id="form-new-post">
+            <div class="">
+                <input type="text" id="post-title" placeholder="Title">
             </div>
-            <div class="row">
-                <div class="col s12">
-                    <label for="post-content">Post Content</label>
-                    <textarea id="post-content"></textarea>
-                </div>
+            
+            <div class="">
+                <textarea id="post-content" placeholder="Content"></textarea>
             </div>
+            <p class="message hide">*Please fill all the fields. <p>
+            <input type="reset" class="cancel-new-post" value="Cancel" />
+            <input type="submit" class="create-post" value="Create" />
         </form>
     </div>
-    <input type="reset" class="cancel-new-post" value="Cancel" />
-    <input type="submit" class="create-post" value="Create" />
     `;
     
     container.appendChild(newPost);
@@ -96,15 +93,13 @@ export const collectNewPostData = () => {
 
     const postTitleInput = document.querySelector("#post-title");
     const postContentInput = document.querySelector("#post-content");
-
+    
     const title = postTitleInput.value;
     const content = postContentInput.value;
    
     const postData = {
-        userId: 10,
-        id: 10,
         title: title,
-        body: content,
+        body: content,      
     }
    
     return postData;
